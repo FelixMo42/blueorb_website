@@ -25,58 +25,58 @@
             const store = firebase.storage()
 
 
-            function save() {
-                //let name = document.getElementById("name").value
+            async function save() {
+                let name = document.getElementById("name").value
 
-                let photo = document.getElementById("photo").files[0]
+                let image = document.getElementById("photo").files[0]
 
-                console.log(photo)
+                let ref = store.ref(image.name)
 
-                store.ref(photo.name).put(photo).then((result) => {
-                    console.log(result)
-                }).catch((error)=> {
-                    console.log(error)
-                })
+                await ref.put(image)
 
-                /*db.collection("materials").doc("LA").set({
+                let imageUrl = await ref.getDownloadURL()
+
+                console.log(imageUrl)
+
+                db.collection("materials").doc(name).set({
                     name: name,
                     category: document.getElementById("category").value,
                     tags: document.getElementById("tags").value,
                     category: document.getElementById("name").value,
+                    photo: imageUrl,
                     info: document.getElementById("info").value,
                     dropoff: document.getElementById("dropoff").value
                 }).then(() => {
                     console.log("Document successfully written!")
                 }).catch((error) => {
                     console.error("Error writing document: ", error)
-                })*/
+                })
             }
         </script>
         
         <form>
-            <!-- <label>name</label><br>
-            <input name="name" required />
+            <label>name</label><br>
+            <input id="name" required />
             <br><br>
 
             <label>category</label><br>
-            <input name="category" required />
+            <input id="category" required />
             <br><br>
 
             <label>tags</label><br>
-            <input name="tags" required />
+            <input id="tags" required />
             <br><br>
-            -->
 
             <label>photo</label><br>
             <input id="photo" type="file" required />
             <br><br>
 
             <label>info</label><br>
-            <textarea name="info" value=""></textarea>
+            <textarea id="info" value=""></textarea>
             <br><br>
 
             <label>dropoff</label><br>
-            <input name="dropoff" />
+            <input id="dropoff" />
             <br><br>
 
             <hr>
