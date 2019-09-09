@@ -29,7 +29,7 @@
                 .limit(1)
                 .get().then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
-                        document.getElementById("last").innerHtml = doc.data().name
+                        document.getElementById("last").innerHTML = doc.data().name
                     })
                 })
 
