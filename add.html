@@ -24,6 +24,14 @@
             const db = app.firestore()
             const store = firebase.storage()
 
+            db.collection("materials")
+                .orderBy("timestamp")
+                .limit(1)
+                .get((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        console.log(doc.data().name)
+                    })
+                })
 
             async function save() {
                 let name = document.getElementById("name").value
@@ -42,10 +50,10 @@
                     name: name,
                     category: document.getElementById("category").value,
                     tags: document.getElementById("tags").value,
-                    category: document.getElementById("name").value,
                     photo: imageUrl,
                     info: document.getElementById("info").value,
-                    dropoff: document.getElementById("dropoff").value
+                    dropoff: document.getElementById("dropoff").value,
+                    timestamp: new Date()
                 }).then(() => {
                     console.log("Document successfully written!")
                 }).catch((error) => {
@@ -82,6 +90,10 @@
             <hr>
 
             <input type="button" value="add" onclick="save()" />
+
+            <hr>
+
+            <p id="last"></p>
         </form>
     </body>
 </html>
