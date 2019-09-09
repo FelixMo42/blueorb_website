@@ -27,7 +27,7 @@
             db.collection("materials")
                 .orderBy("timestamp")
                 .limit(1)
-                .get((querySnapshot) => {
+                .get().then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         document.getElementById("last").innerHtml = data().name
                     })
